@@ -35,7 +35,7 @@ def my_line_chart(f, i):
             linestyle_opts=opts.LineStyleOpts(width=3)
         )
             .set_global_opts(
-            title_opts=opts.TitleOpts(title=("第" + str(i) + "类新闻热点趋势"), pos_left="center"),
+            title_opts=opts.TitleOpts(title=("第" + str(i+1) + "类新闻热点趋势"), pos_left="center", title_textstyle_opts=opts.TextStyleOpts(font_weight="bolder", font_size=40)),
             tooltip_opts=opts.TooltipOpts(trigger="axis"),
             toolbox_opts=opts.ToolboxOpts(is_show=True, feature=opts.ToolBoxFeatureOpts(
                 save_as_image=opts.ToolBoxFeatureSaveAsImageOpts(
@@ -58,19 +58,19 @@ def my_line_chart(f, i):
                 ],
                 out_of_range={"color": "#999"},
             ),
-            xaxis_opts=opts.AxisOpts(axislabel_opts=opts.LabelOpts(rotate=45)),
+            xaxis_opts=opts.AxisOpts(axislabel_opts=opts.LabelOpts(rotate=45, font_weight="bold")),
             yaxis_opts=opts.AxisOpts(
                 type_="value",
-                name=("第" + str(i) + "类新闻条数"),
+                name=("第" + str(i+1) + "类新闻条数"),
                 name_textstyle_opts=opts.TextStyleOpts(
-                    font_size=15,
+                    font_size=20,
                     font_weight="bold"
                 ),
                 min_=0,
                 max_=num,
                 is_scale=True,
                 axistick_opts=opts.AxisTickOpts(is_inside=False),
-                axislabel_opts=opts.LabelOpts(font_size=15)
+                axislabel_opts=opts.LabelOpts(font_size=20)
             ),
         )
             .set_series_opts(
@@ -82,11 +82,12 @@ def my_line_chart(f, i):
                     {"yAxis": 20},
                     {"yAxis": 30},
                 ],
-                label_opts=opts.LabelOpts(position="end"),
+                label_opts=opts.LabelOpts(position="end", font_size=20),
             )
         )
             .render("line_" + str(i) + ".html")
     )
+
 
 def my_line_chart_all(f):
     x = df
@@ -146,14 +147,14 @@ def my_line_chart_all(f):
                 type_="value",
                 name="新闻条数",
                 name_textstyle_opts=opts.TextStyleOpts(
-                    font_size=30,
+                    font_size=20,
                     font_weight="bold"
                 ),
                 min_=0,
                 max_=num,
                 is_scale=True,
                 axistick_opts=opts.AxisTickOpts(is_inside=False),
-                axislabel_opts=opts.LabelOpts(font_size=15)
+                axislabel_opts=opts.LabelOpts(font_size=20)
             ),
         )
             .set_series_opts(
@@ -165,7 +166,7 @@ def my_line_chart_all(f):
                     {"yAxis": 200},
                     {"yAxis": 300},
                 ],
-                label_opts=opts.LabelOpts(position="end"),
+                label_opts=opts.LabelOpts(position="end", font_size=20),
             )
         )
             .render("all.html")
@@ -180,9 +181,9 @@ df = df.sort_values(by='date')
 # print(df.groupby(['label', 'date'])['title'].count().describe)
 with open('C:/Users/song/All about learning/冯如/output.csv', 'a', encoding="utf-8") as f:
     print(f)
-    # for i in range(0, 30):
-    #     my_line_chart(f, i)
-    my_line_chart_all(f)
+    for i in range(0, 30):
+        my_line_chart(f, i)
+    # my_line_chart_all(f)
 # df=df.set_index(df['date'])
 # print(df.describe)
 # ts = pd.Series(df['label'], index=df.index)
